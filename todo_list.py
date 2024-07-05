@@ -100,15 +100,14 @@ class TaskManager:
                 return task
         return None
 
-    def move(self, q_id, pos) -> bool:
-        task = self.search_by_id(q_id)
+    def move(self, task_id, new_index) -> bool:
+        task = self.search_by_id(task_id)
         if task is None:
             return False
-        if not (1 <= pos < len(self.tasks)):
+        if not (0 <= new_index < len(self.tasks)):
             return False
-        index = pos-1
         self.tasks.remove(task)
-        self.tasks.insert(index, task)
+        self.tasks.insert(new_index, task)
         return True
 
 
@@ -143,7 +142,7 @@ if __name__ == '__main__':
             task_manager.print(show_position=True)
             q_id = input('id> ')
             pos = int(input('pos> '))
-            task_manager.move(q_id, pos)
+            task_manager.move(q_id, pos-1)
             task_manager.save()
         elif q == 'z':
             print('[i] Bye.')
